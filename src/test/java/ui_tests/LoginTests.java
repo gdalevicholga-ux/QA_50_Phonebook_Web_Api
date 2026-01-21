@@ -20,8 +20,8 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginPositiveTestWithUser(){
-        User user = new User("family@mail.ru",
-                "Family123!");
+        User user = new User("bolik@gmail.com",
+                "Bolik12345!");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
