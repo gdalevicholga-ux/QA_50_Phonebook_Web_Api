@@ -2,7 +2,9 @@ package ui_tests;
 
 import dto.User;
 import manager.AppManager;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -13,9 +15,12 @@ public class LoginTests extends AppManager {
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
-        loginPage.typeLoginRegistrationForm("family@mail.ru",
-                "Family123!");
+        loginPage.typeLoginRegistrationForm("bolik@gmail.com",
+                "Bolik12345!");
         loginPage.clickBtnLoginForm();
+
+        ContactsPage contactsPage = new ContactsPage(getDriver());
+        Assert.assertTrue(contactsPage.isBtnAddDisplayed());
     }
 
     @Test
@@ -27,5 +32,8 @@ public class LoginTests extends AppManager {
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.typeLoginRegistrationFormWithUser(user);
         loginPage.clickBtnLoginForm();
+
+        ContactsPage contactsPage = new ContactsPage(getDriver());
+        Assert.assertTrue(contactsPage.isBtnContactsDisplayed());
     }
 }
