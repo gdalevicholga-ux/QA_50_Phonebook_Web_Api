@@ -21,6 +21,7 @@ public class LoginTests extends AppManager {
 
         ContactsPage contactsPage = new ContactsPage(getDriver());
         Assert.assertTrue(contactsPage.isBtnAddDisplayed());
+       // Assert.assertTrue(new ContactsPage(getDriver()).isTextInBtnSignOutPresent("Sign Out"));
     }
 
     @Test
@@ -35,5 +36,16 @@ public class LoginTests extends AppManager {
 
         ContactsPage contactsPage = new ContactsPage(getDriver());
         Assert.assertTrue(contactsPage.isBtnContactsDisplayed());
+    }
+    @Test
+    public void loginNegativeTest_WrongEmail(){
+        User user = new User("bolikgmail.com","Bolik12345!");
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickBtnLogin();
+        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage.typeLoginRegistrationFormWithUser(user);
+        loginPage.clickBtnLoginForm();
+        Assert.assertEquals(loginPage.closeAlertReturnText(),"Wrong email or password");
+
     }
 }
