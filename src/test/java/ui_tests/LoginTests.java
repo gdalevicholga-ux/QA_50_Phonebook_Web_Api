@@ -4,7 +4,6 @@ import dto.User;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
 
