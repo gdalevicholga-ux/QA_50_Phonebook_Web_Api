@@ -23,7 +23,7 @@ public class RegistrationTests extends AppManager {
     @Test
     public void registrationPositiveTest(){
         int i = new Random().nextInt(1000);
-        User user = new User("masha"+i+"@gmail.com", "Password123!");
+        User user = new User("olya"+i+"@gmail.com", "Password123!");
         loginPage.typeLoginRegistrationFormWithUser(user);
         loginPage.clickBtnRegistrationForm();
         Assert.assertTrue(new ContactPage(getDriver()).isTextInContactPageMessagePresent("No Contacts here!"));

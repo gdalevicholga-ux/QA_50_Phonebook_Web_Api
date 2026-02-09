@@ -9,6 +9,7 @@ import pages.ContactPage;
 import pages.HomePage;
 import pages.LoginPage;
 
+
 import static utils.UserFactory.positiveUser;
 
 public class LoginTests extends AppManager {
@@ -25,8 +26,8 @@ public class LoginTests extends AppManager {
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
-        loginPage.typeLoginRegistrationForm("family@mail.ru",
-                "Family123!");
+        loginPage.typeLoginRegistrationForm("olya207@gmail.com",
+                "Password123!");
         loginPage.clickBtnLoginForm();
         Assert.assertTrue(new ContactPage(getDriver())
                 .isTextInBtnAddPresent("ADD"));
@@ -34,8 +35,8 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginPositiveTestWithUser(){
-        User user = new User("family@mail.ru",
-                "Family123!");
+        User user = new User("olya207@gmail.com",
+                "Password123!");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
@@ -46,7 +47,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginNegativeTest_WrongEmail(){
-        User user = new User("familymail.ru", "Family123!");
+        User user = new User("olya207gmail.com", "Password123!");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
@@ -57,7 +58,7 @@ public class LoginTests extends AppManager {
     }
     @Test
     public void loginNegativeTest_WrongPassword() {
-        User user = new User("margotest@mail.ru", "WrongPassword123!");
+        User user = new User("olya207gmail.com", "WrongPassword123!");
         loginPage.typeLoginRegistrationFormWithUser(user);
         loginPage.clickBtnLoginForm();
         Assert.assertEquals(loginPage.closeAlertReturnText(),
@@ -75,7 +76,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginNegativeTest_EmptyPassword(){
-        User user = new User("margotest@mail.ru", "");
+        User user = new User("olya207gmail.com", "");
         loginPage.typeLoginRegistrationFormWithUser(user);
         loginPage.clickBtnLoginForm();
         Assert.assertEquals(loginPage.closeAlertReturnText(),
@@ -103,7 +104,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginNegativeTest_EmailWithoutDomain(){
-        User user = new User("margotest@", "Password123!");
+        User user = new User("olya207@", "Password123!");
         loginPage.typeLoginRegistrationFormWithUser(user);
         loginPage.clickBtnLoginForm();
         Assert.assertEquals(loginPage.closeAlertReturnText(),
