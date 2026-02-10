@@ -8,6 +8,9 @@ import org.testng.annotations.Test;
 import pages.ContactPage;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.RetryAnalyser;
+
+import static utils.PropertiesReader.*;
 
 
 import static utils.UserFactory.positiveUser;
@@ -20,14 +23,16 @@ public class LoginTests extends AppManager {
         new HomePage(getDriver()).clickBtnLogin();
         loginPage = new LoginPage(getDriver());
     }
-    @Test
+    @Test(retryAnalyzer = RetryAnalyser.class)
     public void loginPositiveTest(){
         // System.out.println("first test");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
-        loginPage.typeLoginRegistrationForm("olya207@gmail.com",
-                "Password123!");
+     //   loginPage.typeLoginRegistrationForm("olya207@gmail.com",
+      //          "Password123!");
+        loginPage.typeLoginRegistrationForm(getProperty("base.properties","login"),
+                getProperty("base.properties","password"));
         loginPage.clickBtnLoginForm();
         Assert.assertTrue(new ContactPage(getDriver())
                 .isTextInBtnAddPresent("ADD"));
@@ -35,8 +40,8 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginPositiveTestWithUser(){
-        User user = new User("olya207@gmail.com",
-                "Password123!");
+        User user = new User(getProperty("base.properties","login"),
+                getProperty("base.properties","password"));
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
