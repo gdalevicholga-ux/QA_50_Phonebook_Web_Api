@@ -26,7 +26,7 @@ public class AddNewContactTests extends AppManager {
         homePage = new HomePage(getDriver());
         loginPage = clickButtonHeader(HeaderMenuItem.LOGIN);
         loginPage.typeLoginRegistrationForm
-                ("olya207@gmail.com", "Password123!");
+                ("sveta548@smd.com", "Password123!");
         loginPage.clickBtnLoginForm();
         contactPage = new ContactPage(getDriver());
         countOfContacts = contactPage.getCountOfContacts();
@@ -37,23 +37,24 @@ public class AddNewContactTests extends AppManager {
     public void addNewContactPositiveTest() {
         addPage.typeContactForm(positiveContact());
         int countOfContactsAfterAdd = contactPage.getCountOfContacts();
-        Assert.assertEquals(countOfContactsAfterAdd,countOfContacts +1);
-
+        Assert.assertEquals(countOfContactsAfterAdd, countOfContacts + 1);
     }
+
     @Test(dataProvider = "dataProviderFromFile", dataProviderClass = ContactDataProvider.class)
     public void addNewContactPositiveTest_WithDataProvider(Contact contact) {
         addPage.typeContactForm(contact);
         int countOfContactsAfterAdd = contactPage.getCountOfContacts();
-        Assert.assertEquals(countOfContactsAfterAdd,countOfContacts +1);
-
+        Assert.assertEquals(countOfContactsAfterAdd, countOfContacts + 1);
     }
+
     @Test
-    public void addNewContactPositiveTest_ClickLastContact(){
+    public void addNewContactPositiveTest_ClickLastContact() {
         Contact contact = positiveContact();
         addPage.typeContactForm(contact);
-       // contactPage.clickLastContact();
+        // contactPage.clickLastContact();
         Assert.assertTrue(contactPage.isContactPresent(contact));
     }
+
     @Test
     public void addNewContactPositiveTest_ScrollToLastContact() {
         Contact contact = positiveContact();
@@ -62,9 +63,27 @@ public class AddNewContactTests extends AppManager {
         contactPage.clickLastContact();
         String text = contactPage.getTextInContact();
         System.out.println(text);
-        softAssert.assertTrue(text.contains(contact.getName()),"validate Name in DetailCard");
-        softAssert.assertTrue(text.contains(contact.getName()),"validate Email in DetailCard");
-        softAssert.assertTrue(text.contains(contact.getName()),"validate Phone in DetailCard");
+        softAssert.assertTrue(text.contains(contact.getName()),
+                "validate Name in DetailCard");
+        softAssert.assertTrue(text.contains(contact.getEmail()),
+                "validate Email in DetailCard");
+        softAssert.assertTrue(text.contains(contact.getPhone()),
+                "validate Phone in DetailCard");
         softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "dataProviderFromFile_WrongPhone",
+            dataProviderClass = ContactDataProvider.class)
+    public void addNewContactNegativeTest_WrongPhoneWithDP(Contact contact) {
+        addPage.typeContactForm(contact);
+        Assert.assertTrue(addPage.closeAlertReturnText()
+                .contains("Phone not valid:"));
+    }
+
+    @Test(dataProvider = "dataProviderFromFile_Wrong_EmptyField",
+            dataProviderClass = ContactDataProvider.class)
+    public void addNewContactNegativeTest_EmptyFieldWithDP(Contact contact) {
+        addPage.typeContactForm(contact);
+        Assert.assertTrue(addPage.isButtonSaveDisabled());
     }
 }
